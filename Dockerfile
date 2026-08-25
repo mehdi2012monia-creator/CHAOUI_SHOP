@@ -1,26 +1,13 @@
-# 1. استعمل صورة Bun الرسمية
-FROM oven/bun:1.1
+    FROM oven/bun:1.1
+    WORKDIR /app
 
-# 2. دير فولدر الخدمة
-WORKDIR /app
+    COPY package.json bun.lockb* ./
+    RUN bun install
 
-# 3. نسخ ملفات الباكيجات الاول باش الكاش يخدم
-COPY package.json bun.lockb* ./
+    COPY .
 
-# 4. نصب الديبندنسيز
-RUN bun install
+    RUN npx prisma generate
 
-# 5. نسخ باقي الكود
-COPY . .
-
-# 6. جنريت Prisma
-RUN bunx prisma generate
-
-# 7. بيلد Next.js
-RUN bun run build
-
-# 8. البورت
-EXPOSE 3000
-
-# 9. الامر باش يدماري السيرفر
-CMD ["bun", "run", "start"]
+    RUN bun run build
+    EXPOSE 3000
+    CMD ["bun", "run", "start"]
