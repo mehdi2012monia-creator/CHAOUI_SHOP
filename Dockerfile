@@ -4,11 +4,10 @@ WORKDIR /app
 COPY package.json bun.lockb* ./
 RUN bun install
 
-COPY . .
+COPY .
 
-# الحل: نستعمل bunx و نزيد --force
-RUN bunx prisma generate --force
-
+# مسحنا prisma و build عادي
 RUN bun run build
+
 EXPOSE 3000
 CMD ["bun", "run", "start"]
