@@ -1,22 +1,19 @@
-```ts
 import { NextResponse } from "next/server";
 
 export async function GET() {
   return NextResponse.json({
     products: [],
-    message: "Database is not configured yet.",
   });
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const product = await request.json();
 
     return NextResponse.json(
       {
         success: true,
-        product: body,
-        message: "Product saved temporarily. Database is not configured.",
+        product,
       },
       { status: 201 }
     );
@@ -24,8 +21,12 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "Invalid request.",
+        error: "Invalid product data",
       },
+      { status: 400 }
+    );
+  }
+}
       { status: 400 }
     );
   }
