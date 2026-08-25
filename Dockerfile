@@ -2,8 +2,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
-# زدنا --legacy-peer-deps حيت عندك React 19 و مكتبات قديمة
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 COPY . .
 RUN npm run build
