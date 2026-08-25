@@ -1,7 +1,7 @@
+```tsx
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { getSetting } from "@/lib/admin";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -11,12 +11,14 @@ import {
   getStoreUrl,
 } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const base = await getStoreUrl();
-  const gVerify =
-    (await getSetting("google_verification", "")).trim() ||
-    process.env.GOOGLE_SITE_VERIFICATION ||
-    "";
+
+  // أثناء build لا نعتمد على قاعدة البيانات.
+  // يمكن وضع رمز Google Search Console في متغير البيئة.
+  const gVerify = process.env.GOOGLE_SITE_VERIFICATION || "";
 
   return {
     metadataBase: new URL(base),
@@ -86,7 +88,10 @@ export default async function RootLayout({
     priceRange: "149 MAD - 1990 MAD",
     currenciesAccepted: "MAD",
     paymentAccepted: "الدفع عند الاستلام",
-    areaServed: { "@type": "Country", name: "المغرب" },
+    areaServed: {
+      "@type": "Country",
+      name: "المغرب",
+    },
     address: {
       "@type": "PostalAddress",
       addressCountry: "MA",
@@ -110,6 +115,21 @@ export default async function RootLayout({
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(orgJsonLd),
+          }}
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
           rel="stylesheet"
         />
         <script
