@@ -2,19 +2,19 @@ import { prisma } from '@/lib/prisma'
 
 export default async function HomePage() {
   const products = await prisma.product.findMany()
-  
+
   return (
-    <main className="p-8">
-      <h1 className="text-4xl font-bold mb-8">مرحبا بـ MEHDI STORE</h1>
+    <main style={{padding: '40px', fontFamily: 'sans-serif'}}>
+      <h1 style={{fontSize: '32px', marginBottom: '20px'}}>MEHDI STORE</h1>
       
       {products.length === 0 ? (
-        <p>مزال ماكاينينش منتجات. زدهم من لوحة التحكم</p>
+        <p>المتجر فارغ حاليا. زيد منتجات من /admin</p>
       ) : (
-        <div className="grid grid-cols-3 gap-6">
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px'}}>
           {products.map((p) => (
-            <div key={p.id} className="border p-4 rounded-lg">
-              <h2 className="text-xl font-bold">{p.name}</h2>
-              <p className="text-lg text-green-600">{p.price} درهم</p>
+            <div key={p.id} style={{border: '1px solid #ddd', padding: '16px', borderRadius: '8px'}}>
+              <h2>{p.name}</h2>
+              <p style={{color: 'green', fontWeight: 'bold'}}>{p.price} درهم</p>
               <p>{p.description}</p>
             </div>
           ))}
