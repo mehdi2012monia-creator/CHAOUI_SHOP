@@ -1,13 +1,14 @@
-    FROM oven/bun:1.1
-    WORKDIR /app
+FROM oven/bun:1.1
+WORKDIR /app
 
-    COPY package.json bun.lockb* ./
-    RUN bun install
+COPY package.json bun.lockb* ./
+RUN bun install
 
-    COPY . .
+COPY . .
 
-    RUN npx prisma generate
+# الحل: نستعمل bunx و نزيد --force
+RUN bunx prisma generate --force
 
-    RUN bun run build
-    EXPOSE 3000
-    CMD ["bun", "run", "start"]
+RUN bun run build
+EXPOSE 3000
+CMD ["bun", "run", "start"]
