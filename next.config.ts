@@ -22,6 +22,15 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=600, s-maxage=600" },
         ],
       },
+      export default {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
+  // زيد هادي
+  output: 'standalone',
+}
     ];
   },
 };
