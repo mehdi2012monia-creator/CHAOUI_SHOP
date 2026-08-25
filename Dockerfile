@@ -4,7 +4,7 @@
     COPY package.json bun.lockb* ./
     RUN bun install
 
-    COPY .
+    COPY . .
 
     RUN npx prisma generate
 
