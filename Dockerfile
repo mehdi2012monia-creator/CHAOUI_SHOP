@@ -1,24 +1,12 @@
-# Stage 1: Build with Node
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package*.json ./
+# زدنا --legacy-peer-deps حيت عندك React 19 و مكتبات قديمة
+RUN npm install --legacy-peer-deps
 
 COPY . .
-# الحل: نستعملو prisma من node_modules و نزيدو --force
-RUN npx prisma generate --force
 RUN npm run build
 
-# Stage 2: Run with Bun
-FROM oven/bun:1.1 AS runner
-WORKDIR /app
-
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-
 EXPOSE 3000
-CMD ["bun", "run", "start"]
+CMD ["npm", "start"]
