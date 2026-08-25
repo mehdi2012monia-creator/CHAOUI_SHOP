@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json bun.lockb* ./
 RUN bun install
 
-COPY .
+COPY . .
 
 # مسحنا prisma و build عادي
 RUN bun run build
