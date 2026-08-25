@@ -1,17 +1,60 @@
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+```tsx
+"use client";
 
-// بدل هاد 2 سطور باللي عندك فـ المشروع
-import { db } from "@/lib/drizzle"; 
-import { settings } from "@/lib/schema";
+import { useEffect, useState } from "react";
 
-export default async function AdminPanel() {
-  const data = await db.select().from(settings);
-  
+export function AdminPanel() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setMessage("لوحة إدارة MEHDISTORE جاهزة");
+  }, []);
+
   return (
-    <div>
-      Admin Panel
-      {/* الكود ديالك */}
-    </div>
-  )
+    <section className="w-full max-w-6xl mx-auto p-6">
+      <div className="rounded-2xl border bg-white p-6 shadow-sm">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold">
+            لوحة إدارة MEHDISTORE
+          </h1>
+
+          <p className="mt-2 text-sm text-gray-500">
+            إدارة المتجر والمنتجات والإعدادات
+          </p>
+        </div>
+
+        {message && (
+          <div className="mb-6 rounded-lg bg-gray-50 p-4 text-sm">
+            {message}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-xl border p-5">
+            <h2 className="font-semibold">المنتجات</h2>
+            <p className="mt-2 text-sm text-gray-500">
+              إدارة منتجات المتجر
+            </p>
+          </div>
+
+          <div className="rounded-xl border p-5">
+            <h2 className="font-semibold">الطلبات</h2>
+            <p className="mt-2 text-sm text-gray-500">
+              متابعة طلبات الزبائن
+            </p>
+          </div>
+
+          <div className="rounded-xl border p-5">
+            <h2 className="font-semibold">الإعدادات</h2>
+            <p className="mt-2 text-sm text-gray-500">
+              إعدادات المتجر
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
+
+export default AdminPanel;
+```
