@@ -1,4 +1,3 @@
-```tsx
 import type { Metadata } from "next";
 import { DownloadClient } from "./client";
 
@@ -16,4 +15,3 @@ export const metadata: Metadata = {
 export default function DownloadPage() {
   return <DownloadClient />;
 }
-```
