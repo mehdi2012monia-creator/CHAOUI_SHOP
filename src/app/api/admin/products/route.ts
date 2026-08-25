@@ -1,3 +1,4 @@
+```ts
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -23,10 +24,6 @@ export async function POST(request: Request) {
         success: false,
         error: "Invalid product data",
       },
-      { status: 400 }
-    );
-  }
-}
       { status: 400 }
     );
   }
