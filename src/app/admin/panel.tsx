@@ -6,85 +6,69 @@ import { useState } from "react";
 export function AdminPanel() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
+  const tabs = [
+    { id: "dashboard", label: "الرئيسية" },
+    { id: "products", label: "المنتجات" },
+    { id: "orders", label: "الطلبات" },
+    { id: "settings", label: "الإعدادات" },
+  ];
+
   return (
-    <div className="w-full min-h-screen p-4 md:p-6">
+    <main className="min-h-screen w-full p-4 md:p-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold">لوحة تحكم MEHDISTORE</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            إدارة المتجر والمنتجات والطلبات
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold">MEHDISTORE</h1>
+          <p className="mt-2 text-gray-500">
+            لوحة تحكم المتجر
           </p>
         </div>
 
         <div className="mb-6 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab("dashboard")}
-            className={`rounded-lg px-4 py-2 text-sm ${
-              activeTab === "dashboard"
-                ? "bg-black text-white"
-                : "border bg-white"
-            }`}
-          >
-            الرئيسية
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab("products")}
-            className={`rounded-lg px-4 py-2 text-sm ${
-              activeTab === "products"
-                ? "bg-black text-white"
-                : "border bg-white"
-            }`}
-          >
-            المنتجات
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab("orders")}
-            className={`rounded-lg px-4 py-2 text-sm ${
-              activeTab === "orders"
-                ? "bg-black text-white"
-                : "border bg-white"
-            }`}
-          >
-            الطلبات
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab("settings")}
-            className={`rounded-lg px-4 py-2 text-sm ${
-              activeTab === "settings"
-                ? "bg-black text-white"
-                : "border bg-white"
-            }`}
-          >
-            الإعدادات
-          </button>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`rounded-lg border px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === tab.id
+                  ? "bg-black text-white"
+                  : "bg-white text-black hover:bg-gray-100"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+        <section className="rounded-2xl border bg-white p-6 shadow-sm">
           {activeTab === "dashboard" && (
             <div>
-              <h2 className="text-xl font-semibold">لوحة التحكم</h2>
+              <h2 className="text-2xl font-bold">
+                لوحة التحكم
+              </h2>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                <div className="rounded-xl border p-5">
-                  <p className="text-sm text-gray-500">المنتجات</p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-xl border p-6">
+                  <p className="text-sm text-gray-500">
+                    المنتجات
+                  </p>
                   <p className="mt-2 text-3xl font-bold">0</p>
                 </div>
 
-                <div className="rounded-xl border p-5">
-                  <p className="text-sm text-gray-500">الطلبات</p>
+                <div className="rounded-xl border p-6">
+                  <p className="text-sm text-gray-500">
+                    الطلبات
+                  </p>
                   <p className="mt-2 text-3xl font-bold">0</p>
                 </div>
 
-                <div className="rounded-xl border p-5">
-                  <p className="text-sm text-gray-500">المبيعات</p>
-                  <p className="mt-2 text-3xl font-bold">0 DH</p>
+                <div className="rounded-xl border p-6">
+                  <p className="text-sm text-gray-500">
+                    المبيعات
+                  </p>
+                  <p className="mt-2 text-3xl font-bold">
+                    0 DH
+                  </p>
                 </div>
               </div>
             </div>
@@ -92,33 +76,39 @@ export function AdminPanel() {
 
           {activeTab === "products" && (
             <div>
-              <h2 className="text-xl font-semibold">إدارة المنتجات</h2>
-              <p className="mt-2 text-sm text-gray-500">
-                يمكنك إضافة وإدارة منتجات المتجر هنا.
+              <h2 className="text-2xl font-bold">
+                المنتجات
+              </h2>
+              <p className="mt-2 text-gray-500">
+                إدارة منتجات MEHDISTORE.
               </p>
             </div>
           )}
 
           {activeTab === "orders" && (
             <div>
-              <h2 className="text-xl font-semibold">الطلبات</h2>
-              <p className="mt-2 text-sm text-gray-500">
-                ستظهر طلبات الزبائن هنا.
+              <h2 className="text-2xl font-bold">
+                الطلبات
+              </h2>
+              <p className="mt-2 text-gray-500">
+                إدارة ومتابعة طلبات الزبائن.
               </p>
             </div>
           )}
 
           {activeTab === "settings" && (
             <div>
-              <h2 className="text-xl font-semibold">إعدادات المتجر</h2>
-              <p className="mt-2 text-sm text-gray-500">
-                إعدادات MEHDISTORE.
+              <h2 className="text-2xl font-bold">
+                الإعدادات
+              </h2>
+              <p className="mt-2 text-gray-500">
+                إعدادات المتجر.
               </p>
             </div>
           )}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
 
